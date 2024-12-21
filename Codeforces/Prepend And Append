@@ -1,0 +1,31 @@
+Problem Link: https://codeforces.com/problemset/problem/1791/C
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std; 
+
+int main() {
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+
+	int t;cin>>t;
+	while(t--){
+		int n;cin>>n;
+		string str;cin>>str;
+
+		int start = 0, last = str.length()-1;
+		int cnt = 0;
+		int e = n;
+		while(start <= last){
+			if((str[start] == '1' && str[last] == '1') || (str[start] == '0' && str[last] == '0')){
+				cnt += str.substr(start, e).length();
+				break;
+			}
+			start++;
+			last--;
+			e = e - 2;
+		}
+
+		cout << cnt << endl;
+	}
+}
