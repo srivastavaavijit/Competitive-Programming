@@ -1,0 +1,47 @@
+Problem Link: https://codeforces.com/contest/2035/problem/A
+
+Solution:
+
+int main() {
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+
+	int t;cin>>t;
+	while(t--){
+		int n,m,r,c;cin>>n>>m>>r>>c;
+
+		ll sum = 0;
+
+		if(r == n && c == 1){
+			sum += m-1;
+			cout << sum << endl;
+			continue;	
+		}
+		if(r == n && c == m){
+			sum = 0;
+			cout << sum << endl;
+			continue;
+		}
+
+		if(r == n){
+			sum += m-c;
+			cout << sum << endl;
+			continue;
+		}
+
+		else{
+			// For persons in the same row:
+			sum += m-c;
+
+			for(int i=r+1; i<=n; i++){
+				// first person of each row would move to last column of previous row:
+				int firstPersonDistanceChange = 1 + abs(1-m);
+
+				ll tot_change = m-1;
+
+				sum = sum + firstPersonDistanceChange + tot_change;
+			}
+			cout << sum << endl;
+		}
+	}
+}
