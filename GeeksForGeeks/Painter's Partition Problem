@@ -1,0 +1,49 @@
+Problem Link: https://geeksforgeeks.org/problems/the-painters-partition-problem1535/1
+
+Solution:
+ int check(int mid, vector<int> arr, int k){
+        int n = arr.size();
+        int last_painter_time_left = 0;
+        int num_painted_spawned = 0;
+        
+        for(int i=0; i<n; i++){
+            if(last_painter_time_left >= arr[i]){
+                last_painter_time_left -= arr[i];
+            }
+            else{
+                num_painted_spawned++;
+                if(num_painted_spawned > k){
+                    return 0;
+                }
+                else{
+                    last_painter_time_left = mid;
+                    if(last_painter_time_left >= arr[i]){
+                        last_painter_time_left -= arr[i];
+                    }
+                    else{
+                        return 0;
+                    }
+                }
+            }
+        }
+        return 1;
+    }
+    int minTime(vector<int>& arr, int k) {
+        long long sum = 0;
+        for(int i=0; i<arr.size(); i++){
+            sum += arr[i];
+        }
+        
+        int lo = 0, hi = sum, ans = -1;
+        while(lo <= hi){
+            int mid = (lo +(hi-lo)/2);
+            if(check(mid,arr,k) == 1){
+                ans = mid;
+                hi = mid - 1;
+            }
+            else{
+                lo = mid + 1;
+            }
+        }
+        return ans;
+    }
