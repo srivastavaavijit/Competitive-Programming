@@ -1,0 +1,65 @@
+Problem Link: https://codeforces.com/problemset/problem/1472/D
+
+Hint:
+They both will try to remove maximum value from the array, so that the other person cannot pick it and hence, score of him will not get increased.
+Edge case: What if array contains one element?
+
+Solution:
+    int n;cin>>n;
+		vector<int> arr(n);
+		bool allEven = true, allOdd = true;
+		int maxi = -1;
+		for(int i=0; i<n; i++){
+			cin>>arr[i];
+			if(arr[i] %2 == 1){
+				allEven = false;
+			}
+			else if(arr[i] % 2 == 0){
+				allOdd = false;
+			}
+			if(arr[i] > maxi){
+				maxi = arr[i];
+			}
+		}
+
+		if(allEven){
+			cout << "Alice" << endl;
+			continue;
+		}
+		else if(allOdd){
+			if(n == 1){
+				cout << "Tie" << endl;
+			}
+			else{
+				cout << "Bob" << endl;
+			}
+			continue;
+		}
+		else{
+			sort(arr.begin(), arr.end());
+			bool isAliceTurn = true;
+			ll aliceScore = 0, bobScore = 0;
+			for(int i=n-1; i>=0; i--){
+				if(isAliceTurn){
+					if(arr[i] % 2 == 0){
+						aliceScore += arr[i];
+					}
+					isAliceTurn = false;
+				}
+				else{
+					if(arr[i] % 2 == 1){
+						bobScore += arr[i];
+					}
+					isAliceTurn = true;
+				}
+			}
+			if(aliceScore > bobScore){
+				cout << "Alice" << endl;
+			}
+			else if(aliceScore < bobScore){
+				cout << "Bob" << endl;
+			}
+			else{
+				cout << "Tie" << endl;
+			}
+		}
